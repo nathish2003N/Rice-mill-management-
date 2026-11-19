@@ -44,5 +44,4 @@ jobs:
         with:
           name: rice-mill-manager-apk
           path: source/build/app/outputs/flutter-apk/app-release.apk
-
           
