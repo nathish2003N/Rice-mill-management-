@@ -1,7 +1,6 @@
-
 name: Build Android APK
 
-"on":
+on:
   workflow_dispatch:
   push:
     branches:
@@ -13,6 +12,7 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -20,7 +20,7 @@ jobs:
       - name: Extract project
         run: |
           mkdir source
-          unzip rice_mill_manager_v2_android.zip -d source
+          unzip -q rice_mill_manager_v2_android.zip -d source
 
       - name: Setup Java
         uses: actions/setup-java@v4
@@ -34,9 +34,8 @@ jobs:
           channel: stable
 
       - name: Build APK
-        working-directory: source
         run: |
-          flutter create --platforms=android .
+          cd source
           flutter pub get
           flutter build apk --release
 
@@ -45,4 +44,5 @@ jobs:
         with:
           name: rice-mill-manager-apk
           path: source/build/app/outputs/flutter-apk/app-release.apk
+
           
